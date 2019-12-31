@@ -4,3 +4,5 @@ Short examples of specific Viewer use cases.
 - [How to add right click menu context command](RightClickContextCommands.md)
 
 - [How to add right click menu command and keyboard shortcut](RightClickCommandAndKeyboardShortcut.md)
+
+- [How to add section planes](SectionPlanes.md)
