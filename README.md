@@ -8,3 +8,5 @@ Short examples of specific Viewer use cases.
 - [How to add section planes](SectionPlanes.md)
 
 - [How to add annotations](Annotations.md)
+
+- [Getters](Getters.md)
