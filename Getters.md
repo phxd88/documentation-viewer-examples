@@ -14,6 +14,27 @@ Some getters require parameters :
 this.$store.getters["viewer/getter_I_want_to_access"](parameter);
 ```
 
+You have to use 'viewer/' because it is a module vuex but you can use some vuex utilities to simplify the getters access :
+
+```javascript
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("viewer");
+
+// Your Vuejs component
+export default {
+  computed: {
+    ...mapGetters(['getter_I_want_to_access'])
+  },
+  methods: {
+    myMethod() {
+      // the access is simplified
+      this.getter_I_want_to_access;
+      ...
+    }
+  }
+}
+```
+
 Here is a list of all the getters :
 
 ```javascript
