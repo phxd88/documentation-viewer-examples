@@ -159,6 +159,7 @@ objectSpace(id);
 ## Example
 
 Clicking the plugin icon will activate the 'select by storey' mode. You can now click on an object and all objects in the same storey will be selected.
+The hover is storey dependent.
 
 ```html
 <!DOCTYPE html>
@@ -167,7 +168,7 @@ Clicking the plugin icon will activate the 'select by storey' mode. You can now 
     <meta charset="utf-8" />
     <title>BIMData - Getters - Storey</title>
     <script
-      src="https://unpkg.com/@bimdata/viewer@0.5.0/dist/bimdata-viewer.min.js"
+      src="https://unpkg.com/@bimdata/viewer@0.5.1/dist/bimdata-viewer.min.js"
       charset="utf-8"
     ></script>
   </head>
@@ -212,10 +213,31 @@ Clicking the plugin icon will activate the 'select by storey' mode. You can now 
             },
             data() {
               return {
-                pickSubscription: null
+                pickedNothingSubscription: null,
+                pickSubscription: null,
+                hoverSubscription: null,
+                hoverOffSubscription: null,
+                highlightedStorey: null
               };
             },
             props: ["active"],
+            methods: {
+              deselectAll() {
+                this.$store.state.viewer.hub.$emit("deselect-objects", {
+                  ids: this.$store.state.viewer.selectedObjectIds
+                });
+              },
+              unhighlightAll() {
+                if (this.highlightedStorey) {
+                  this.$store.state.viewer.hub.$emit("unhighlight-objects", {
+                    ids: this.$store.getters["viewer/objectDescendants"](
+                      this.highlightedStorey.uuid
+                    ).map(object => object.uuid)
+                  });
+                  this.highlightedStorey = null;
+                }
+              }
+            },
             watch: {
               active: {
                 handler(active) {
@@ -223,6 +245,7 @@ Clicking the plugin icon will activate the 'select by storey' mode. You can now 
                     "viewer3D"
                   );
                   viewer3D.selectOnClick = !active;
+                  viewer3D.highlightOnHover = !active;
                   if (active) {
                     document.body.style.setProperty(
                       "cursor",
@@ -250,9 +273,60 @@ Clicking the plugin icon will activate the 'select by storey' mode. You can now 
                         }
                       }
                     );
+
+                    this.pickedNothingSubscription = viewer3D.viewer.cameraControl.on(
+                      "pickedNothing",
+                      this.deselectAll
+                    );
+
+                    this.hoverSubscription = viewer3D.viewer.cameraControl.on(
+                      "hover",
+                      hit => {
+                        if (hit && hit.entity && hit.entity.isObject) {
+                          const storey = this.$store.getters[
+                            "viewer/objectStorey"
+                          ](hit.entity.id);
+                          if (storey) {
+                            if (
+                              !this.highlightedStorey ||
+                              storey !== this.highlightedStorey
+                            ) {
+                              if (
+                                this.highlightedStorey &&
+                                storey !== this.highlightedStorey
+                              ) {
+                                this.unhighlightAll();
+                              }
+                              this.$store.state.viewer.hub.$emit(
+                                "highlight-objects",
+                                {
+                                  ids: this.$store.getters[
+                                    "viewer/objectDescendants"
+                                  ](storey.uuid).map(object => object.uuid)
+                                }
+                              );
+                              this.highlightedStorey = storey;
+                            }
+                          }
+                        }
+                      }
+                    );
+                    // Deselect all on hover off
+                    this.hoverOffSubscription = viewer3D.viewer.cameraControl.on(
+                      "hoverOff",
+                      this.unhighlightAll
+                    );
                   } else {
+                    this.unhighlightAll();
                     document.body.style.removeProperty("cursor");
+                    viewer3D.viewer.cameraControl.off(
+                      this.pickedNothingSubscription
+                    );
                     viewer3D.viewer.cameraControl.off(this.pickSubscription);
+                    viewer3D.viewer.cameraControl.off(this.hoverSubscription);
+                    viewer3D.viewer.cameraControl.off(
+                      this.hoverOffSubscription
+                    );
                   }
                 }
               }

@@ -93,6 +93,18 @@ hub.$emit("show-objects", { ids });
 hub.$emit("hide-objects", { ids });
 
 /**
+ * Highlight objects.
+ * @param {Array|Set<string>} ids - the ids of objects to highlight.
+ */
+hub.$emit("highlight-objects", { ids });
+
+/**
+ * Unhighlight objects.
+ * @param {Array|Set<string>} ids - the ids of objects to unhighlight.
+ */
+hub.$emit("unhighlight-objects", { ids });
+
+/**
  * Colorize objects.
  * @param {Array|Set<string>} ids - the ids of objects to colorize.
  * @param {Array(3)} color - the color to apply on objects.
