@@ -9,4 +9,8 @@ Short examples of specific Viewer use cases.
 
 - [How to add annotations](Annotations.md)
 
+- [State](State.md)
+
 - [Getters](Getters.md)
+
+- [Events](Events.md)
