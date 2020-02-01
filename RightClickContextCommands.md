@@ -25,7 +25,7 @@ const MyComponent = {
   methods: {
     onRightClick() {
       // get the right click menu plugin
-      const rightClickMenu = this.$store.state.viewer.plugins.get("right-click-menu");
+      const rightClickMenu = this.$plugins["right-click-menu"];
       // register context command
       rightClickMenu.registerContextCommand({
         label: "My context command",
@@ -54,7 +54,7 @@ Open the plugin and right click on the 'Data' area. Edit command will be added t
     <meta charset="utf-8" />
     <title>BIMData - Context Menu</title>
     <script
-      src="https://unpkg.com/@bimdata/viewer@0.4.3/dist/bimdata-viewer.min.js"
+      src="https://unpkg.com/@bimdata/viewer@0.6.4/dist/bimdata-viewer.min.js"
       charset="utf-8"
     ></script>
   </head>
@@ -116,9 +116,7 @@ Open the plugin and right click on the 'Data' area. Edit command will be added t
                 this.editMode = false;
               },
               onRightClick(number) {
-                const rightClickMenu = this.$store.state.viewer.plugins.get(
-                  "right-click-menu"
-                );
+                const rightClickMenu = this.$plugins["right-click-menu"];
                 if (rightClickMenu) {
                   rightClickMenu.registerContextCommand({
                     label: "Edit",
@@ -131,8 +129,10 @@ Open the plugin and right click on the 'Data' area. Edit command will be added t
             }
           },
           keepActive: true,
-          position: "left-menu",
-          display: "menu",
+          display: {
+            iconPosition: 'left',
+            content: 'simple'
+          },
           tooltip: "myCustomPlugin"
         }
       ]);
