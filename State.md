@@ -2,49 +2,43 @@
 
 ## Description
 
-Some usefull feature are present on the viewer state.
-
-To access the viewer state :
-
-```javascript
-this.$store.state.viewer;
-```
+Some usefull feature are present using the '$' syntax.
 
 Here is a list of these features :
 
 ```javascript
 /**
- * A map containing all registered plugins with name as key and plugin as value.
+ * An object containing all registered plugins.
  */
-this.$store.state.viewer.plugins;
+this.$plugins.pluginIWantToAccess;
 
 /**
  * The access token for BIMDataConnect.
  */
-this.$store.state.viewer.accessToken;
+this.$utils.getAccessToken();
 
 /**
  * The client to access BIMData API. https://github.com/bimdata/javascript-api-client
  */
-this.$store.state.viewer.client;
+this.$bimdataApiClient;
 
 /**
  * The event hub.
  */
-this.$store.state.viewer.hub;
+this.$hub;
 
 /**
  * The keyboard shortcut manager to register shortcuts.
  */
-this.$store.state.viewer.keyboardShortcutsManager;
+this.$plugins.keyboardShortcutsManager;
 
 /**
  * The modal manager to display global modals.
  */
-this.$store.state.viewer.modalManager;
+this.$plugins.modalManager;
 
 /**
  * A Set of all selected object ids. The same property is present on the getters but returns an Array instead.
  */
-this.$store.state.viewer.selectedObjectIds;
+this.$utils.getSelectedObjectIds();
 ```
