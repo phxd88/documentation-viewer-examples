@@ -5,7 +5,7 @@
 To add annotations on objects, simply emit the "create-annotations" event on the event hub. You must provide object ids, a priority ("low", "medium" or "hight") and an index that will be display on the annotation.
 
 ```javascript
-this.$store.state.viewer.hub.$emit("create-annotations", {
+this.$hub.emit("create-annotations", {
   ids: [/* object ids */],
   index: 0,
   priority: "low" // "low", "medium" or "high"
@@ -15,7 +15,7 @@ this.$store.state.viewer.hub.$emit("create-annotations", {
 To delete all annotations, emit "clear-annotations" event on the event hub.
 
 ```javascript
-this.$store.state.viewer.hub.$emit("clear-annotations");
+this.$hub.emit("clear-annotations");
 ```
 
 ## Example
@@ -30,7 +30,7 @@ Closing the plugin will delete all annotations.
 <head>
   <meta charset="utf-8">
   <title>BIMData - Annotations</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.4.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.6.3/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -58,7 +58,7 @@ Closing the plugin will delete all annotations.
       logo: true
     }
     const accessToken = 'DEMO_TOKEN';
-    const { viewer, store, eventHub, setAccessToken } = initBIMDataViewer('app', accessToken, cfg);
+    const { viewer } = initBIMDataViewer('app', accessToken, cfg);
 
     viewer.registerPlugins([{
       name: "annotations",
@@ -85,7 +85,7 @@ Closing the plugin will delete all annotations.
         watch: {
           active: {
             handler(active) {
-              const viewer3D = this.$store.state.viewer.plugins.get("viewer3D");
+              const viewer3D = this.$plugins.viewer3D;
               viewer3D.selectOnClick = !active;
               // viewer3D.highlightOnHover = !active; // To remove the highlight on hover
               if (active) {
@@ -94,10 +94,10 @@ Closing the plugin will delete all annotations.
                   "picked",
                   pickResult => {
                     if (!this.priority) {
-                      return this.$store.state.viewer.hub.$emit('alert', { type: 'warning', message: 'You must select a priority.' });
+                      return this.$hub.emit('alert', { type: 'warning', message: 'You must select a priority.' });
                     }
                     if (!pickResult || !pickResult.entity) return;
-                    this.$store.state.viewer.hub.$emit("create-annotations", {
+                    this.$hub.emit("create-annotations", {
                       ids: [pickResult.entity.id],
                       index: this.index,
                       priority: this.priority
@@ -109,13 +109,15 @@ Closing the plugin will delete all annotations.
                 viewer3D.viewer.cameraControl.off(this.pickSubscription);
                 this.index = 1;
                 this.priority = "";
-                this.$store.state.viewer.hub.$emit("clear-annotations");
+                this.$hub.emit("clear-annotations");
               }
             }
           }
         }
       },
-      position: "left-menu",
+      display: {
+        iconPosition: "left"
+      },
       keepActive: true
     }])
   </script>
