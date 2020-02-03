@@ -53,7 +53,7 @@ Clicking the plugin icon will activate the 'cutting' mode. You can now click on 
 <head>
   <meta charset="utf-8" />
   <title>BIMData - Section on surface</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.6.3/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -112,7 +112,7 @@ Clicking the plugin icon will activate the 'cutting' mode. You can now click on 
                     "crosshair",
                     "important"
                   );
-                  this.pickSurfaceSubscription = viewer3D.viewer.cameraControl.on(
+                  this.pickSurfaceSubscription = viewer3D.xeokit.cameraControl.on(
                     "pickedSurface",
                     pickResult => {
                       if (!pickResult) return;
@@ -127,7 +127,7 @@ Clicking the plugin icon will activate the 'cutting' mode. You can now click on 
                   );
                 } else {
                   document.body.style.removeProperty("cursor");
-                  viewer3D.viewer.cameraControl.off(
+                  viewer3D.xeokit.cameraControl.off(
                     this.pickSurfaceSubscription
                   );
                   this.$hub.emit(

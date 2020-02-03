@@ -30,7 +30,7 @@ Closing the plugin will delete all annotations.
 <head>
   <meta charset="utf-8">
   <title>BIMData - Annotations</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.6.3/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -90,7 +90,7 @@ Closing the plugin will delete all annotations.
               // viewer3D.highlightOnHover = !active; // To remove the highlight on hover
               if (active) {
                 document.body.style.setProperty("cursor", "copy", "important");
-                this.pickSubscription = viewer3D.viewer.cameraControl.on(
+                this.pickSubscription = viewer3D.xeokit.cameraControl.on(
                   "picked",
                   pickResult => {
                     if (!this.priority) {
@@ -106,7 +106,7 @@ Closing the plugin will delete all annotations.
                 );
               } else {
                 document.body.style.removeProperty("cursor");
-                viewer3D.viewer.cameraControl.off(this.pickSubscription);
+                viewer3D.xeokit.cameraControl.off(this.pickSubscription);
                 this.index = 1;
                 this.priority = "";
                 this.$hub.emit("clear-annotations");

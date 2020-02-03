@@ -10,7 +10,7 @@ Warning : rightClickMenu will be undefined if you deactivate it on the viewer cf
 
 ```javascript
 ...
-const rightClickMenu = this.$plugins["right-click-menu"];
+const rightClickMenu = this.$plugins.rightClickMenu;
 
 rightClickMenu.registerCommand({
   label: "My custom command",     // The text that will be displayed on the right click menu
@@ -45,7 +45,7 @@ The plugin we add here is not displayed to the end user. It just add a command t
 <head>
   <meta charset="utf-8" />
   <title>BIMData - Right Click Command and Keyboard Shortcut</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.6.3/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -87,7 +87,7 @@ The plugin we add here is not displayed to the end user. It just add a command t
           },
           created() {
             // Add right click command
-            const rightClickMenu = this.$plugins["right-click-menu"];
+            const rightClickMenu = this.$plugins.rightClickMenu;
             const getSpaceIds = () =>
               this.$utils.getAllObjectsOfType("space").map(
                 object => object.uuid
@@ -99,7 +99,7 @@ The plugin we add here is not displayed to the end user. It just add a command t
             };
             const isSpaceVisible = () => {
               const allObjects = Object.values(
-                this.$plugins.viewer3D.viewer.scene.objects
+                this.$plugins.viewer3D.xeokit.scene.objects
               );
               const spaceUUIDs = getSpaceIds();
               const spaceObjects = allObjects.filter(object =>
