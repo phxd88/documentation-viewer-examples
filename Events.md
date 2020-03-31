@@ -118,7 +118,7 @@ $hub.emit("unisolate-all-objects");
  * Create annotations.
  * @param {Array|Set<string>} ids - the ids of objects on wich to create annotation.
  * @param {number|string} index - the index that will be displayed on annotations.
- * @param {string} priority - the priority that will change the annotation aspect. Values accepted : "low", "medium", or "hight"
+ * @param {string} priority - the priority that will change the annotation aspect. Values accepted : "low", "medium", or "high"
  */
 $hub.emit("create-annotations", { ids, index, priority });
 
