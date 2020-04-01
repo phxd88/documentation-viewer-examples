@@ -54,7 +54,7 @@ Open the plugin and right click on the 'Data' area. Edit command will be added t
     <meta charset="utf-8" />
     <title>BIMData - Context Menu</title>
     <script
-      src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js"
+      src="https://unpkg.com/@bimdata/viewer@0.7.17/dist/bimdata-viewer.min.js"
       charset="utf-8"
     ></script>
   </head>
@@ -68,19 +68,11 @@ Open the plugin and right click on the 'Data' area. Edit command will be added t
         cloudId: 88,
         projectId: 100,
         ifcIds: [],
-        bcf: false,
-        reload: false,
-        model: false,
-        help: false,
-        fullscreen: false,
-        section: false,
-        projection: false,
-        selectOptions: false,
-        structureAndProperties: false,
-        bcf: false,
-        logo: true,
-        rightClickMenu: true, // Right click menu should be activated
-        viewer3DNavCube: false
+        bimdataPlugins: {
+          default: false,
+          rightClickMenu: true, // Right click menu should be activated
+        }
+
       };
       const accessToken = "DEMO_TOKEN";
       const { viewer, store, eventHub, setAccessToken } = initBIMDataViewer(
