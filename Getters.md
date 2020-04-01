@@ -141,7 +141,7 @@ The hover is storey dependent.
     <meta charset="utf-8" />
     <title>BIMData - Getters - Storey</title>
     <script
-      src="https://unpkg.com/@bimdata/viewer@0.6.3/dist/bimdata-viewer.min.js"
+      src="https://unpkg.com/@bimdata/viewer@0.7.17/dist/bimdata-viewer.min.js"
       charset="utf-8"
     ></script>
   </head>
@@ -155,20 +155,11 @@ The hover is storey dependent.
         cloudId: 88,
         projectId: 100,
         ifcIds: [175],
-        bcf: false,
-        reload: false,
-        model: false,
-        help: false,
-        fullscreen: false,
-        section: false,
-        projection: false,
-        selectOptions: false,
-        structureAndProperties: false,
-        bcf: false,
-        rightClickMenu: true,
-        viewer3DNavCube: false,
-        alerts: true,
-        logo: true
+        bimdataPlugins: {
+          default: false,
+          rightClickMenu: true,
+          alerts: true
+        }
       };
       const accessToken = "DEMO_TOKEN";
       const { viewer } = initBIMDataViewer(
@@ -223,7 +214,7 @@ The hover is storey dependent.
                       "crosshair",
                       "important"
                     );
-                    this.pickSubscription = viewer3D.viewer.cameraControl.on(
+                    this.pickSubscription = viewer3D.xeokit.cameraControl.on(
                       "picked",
                       pickResult => {
                         if (!pickResult || !pickResult.entity) return;
@@ -245,12 +236,12 @@ The hover is storey dependent.
                       }
                     );
 
-                    this.pickedNothingSubscription = viewer3D.viewer.cameraControl.on(
+                    this.pickedNothingSubscription = viewer3D.xeokit.cameraControl.on(
                       "pickedNothing",
                       this.deselectAll
                     );
 
-                    this.hoverSubscription = viewer3D.viewer.cameraControl.on(
+                    this.hoverSubscription = viewer3D.xeokit.cameraControl.on(
                       "hover",
                       hit => {
                         if (hit && hit.entity && hit.entity.isObject) {
@@ -280,19 +271,19 @@ The hover is storey dependent.
                       }
                     );
                     // Deselect all on hover off
-                    this.hoverOffSubscription = viewer3D.viewer.cameraControl.on(
+                    this.hoverOffSubscription = viewer3D.xeokit.cameraControl.on(
                       "hoverOff",
                       this.unhighlightAll
                     );
                   } else {
                     this.unhighlightAll();
                     document.body.style.removeProperty("cursor");
-                    viewer3D.viewer.cameraControl.off(
+                    viewer3D.xeokit.cameraControl.off(
                       this.pickedNothingSubscription
                     );
-                    viewer3D.viewer.cameraControl.off(this.pickSubscription);
-                    viewer3D.viewer.cameraControl.off(this.hoverSubscription);
-                    viewer3D.viewer.cameraControl.off(
+                    viewer3D.xeokit.cameraControl.off(this.pickSubscription);
+                    viewer3D.xeokit.cameraControl.off(this.hoverSubscription);
+                    viewer3D.xeokit.cameraControl.off(
                       this.hoverOffSubscription
                     );
                   }
