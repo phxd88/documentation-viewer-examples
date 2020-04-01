@@ -9,8 +9,12 @@ Short examples of specific Viewer use cases.
 
 - [How to add annotations](Annotations.md)
 
+- [How to display modals](ModalManager.md)
+
 - [State](State.md)
 
 - [Getters](Getters.md)
 
 - [Events](Events.md)
+
+
