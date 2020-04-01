@@ -30,7 +30,7 @@ Closing the plugin will delete all annotations.
 <head>
   <meta charset="utf-8">
   <title>BIMData - Annotations</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.7.17/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -42,20 +42,10 @@ Closing the plugin will delete all annotations.
       cloudId: 88,
       projectId: 100,
       ifcIds: [175],
-      bcf: false,
-      reload: false,
-      model: false,
-      help: false,
-      fullscreen: false,
-      section: false,
-      projection: false,
-      selectOptions: false,
-      structureAndProperties: false,
-      bcf: false,
-      rightClickMenu: false,
-      viewer3DNavCube: false,
-      alerts: true,
-      logo: true
+      bimdataPlugins: {
+        default: false,
+        alerts: true,
+      }
     }
     const accessToken = 'DEMO_TOKEN';
     const { viewer } = initBIMDataViewer('app', accessToken, cfg);
