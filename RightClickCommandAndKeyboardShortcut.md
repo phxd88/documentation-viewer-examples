@@ -45,7 +45,7 @@ The plugin we add here is not displayed to the end user. It just add a command t
 <head>
   <meta charset="utf-8" />
   <title>BIMData - Right Click Command and Keyboard Shortcut</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.7.17/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -57,19 +57,10 @@ The plugin we add here is not displayed to the end user. It just add a command t
       cloudId: 88,
       projectId: 100,
       ifcIds: [175],
-      bcf: false,
-      reload: false,
-      model: false,
-      help: false,
-      fullscreen: false,
-      section: false,
-      projection: false,
-      selectOptions: false,
-      structureAndProperties: false,
-      bcf: false,
-      logo: true,
-      rightClickMenu: true, // Right click menu should be activated
-      viewer3DNavCube: false
+      bimdataPlugins: {
+        default: false,
+        rightClickMenu: true, // Right click menu should be activated
+      }
     };
     const accessToken = "DEMO_TOKEN";
     const { viewer } = initBIMDataViewer(
