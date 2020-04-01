@@ -13,6 +13,8 @@ Short examples of specific Viewer use cases.
 
 - [How to make async plugins](AsyncPlugins.md)
 
+- [How to customize plugin icon](CustomPluginIcon.md)
+
 - [State](State.md)
 
 - [Getters](Getters.md)
