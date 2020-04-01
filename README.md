@@ -11,6 +11,8 @@ Short examples of specific Viewer use cases.
 
 - [How to display modals](ModalManager.md)
 
+- [How to make async plugins](AsyncPlugins.md)
+
 - [State](State.md)
 
 - [Getters](Getters.md)
