@@ -53,7 +53,7 @@ Clicking the plugin icon will activate the 'cutting' mode. You can now click on 
 <head>
   <meta charset="utf-8" />
   <title>BIMData - Section on surface</title>
-  <script src="https://unpkg.com/@bimdata/viewer@0.6.5/dist/bimdata-viewer.min.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/@bimdata/viewer@0.7.17/dist/bimdata-viewer.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -65,19 +65,9 @@ Clicking the plugin icon will activate the 'cutting' mode. You can now click on 
       cloudId: 88,
       projectId: 100,
       ifcIds: [175],
-      bcf: false,
-      reload: false,
-      model: false,
-      help: false,
-      fullscreen: false,
-      section: false,
-      projection: false,
-      selectOptions: false,
-      structureAndProperties: false,
-      bcf: false,
-      logo: true,
-      rightClickMenu: false,
-      viewer3DNavCube: false
+      bimdataPlugins: {
+        default: false
+      }
     };
     const accessToken = "DEMO_TOKEN";
     const { viewer, store, eventHub, setAccessToken } = initBIMDataViewer(
